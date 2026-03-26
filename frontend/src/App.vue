@@ -4,7 +4,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 // API 기본 설정 (백엔드 주소에 맞게 수정하세요)
-const API_URL = 'http://localhost:8080/board';
+const API_URL = 'http://localhost:8080';
 
 // 상태 관리
 const boardList = ref([]); // 목록
@@ -16,7 +16,7 @@ const loadingDetail = ref(false);
 // 1. 목록 가져오기
 const getBoardList = async () => {
   try {
-    const response = await axios.get(`${API_URL}/list`);
+    const response = await axios.get(`${API_URL}/board/list`);
     boardList.value = response.data;
   } catch (error) {
     alert('목록을 불러오는데 실패했습니다.');
@@ -33,7 +33,7 @@ const createBoard = async () => {
 
   try {
     // 백엔드로 데이터 전송
-    await axios.post(`${API_URL}/reg`, boardInput.value);
+    await axios.post(`${API_URL}/board/reg`, boardInput.value);
 
     // 폼 초기화 (content로 통일)
     boardInput.value = { title: '', contents: '' };
@@ -59,7 +59,7 @@ const toggleDetail = async (id) => {
   loadingDetail.value = true;
 
   try {
-    const response = await axios.get(`${API_URL}/${id}`);
+    const response = await axios.get(`${API_URL}/board/${id}`);
     currentBoard.value = response.data;
   } catch (error) {
     alert('상세 내용을 불러올 수 없습니다.');
