@@ -4,7 +4,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 // API 기본 설정 (백엔드 주소에 맞게 수정하세요)
-const API_URL = 'http://localhost:8080';
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 // 상태 관리
 const boardList = ref([]); // 목록
