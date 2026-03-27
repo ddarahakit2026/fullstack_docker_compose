@@ -39,4 +39,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            echo test > /tmp/test
+            sudo docker pull ddarahakit2026/backend:latest
+            sudo docker stop backend || true
+            sudo docker rm backend || true
+            sudo docker run -d -p 8080:8080 --name backend ddarahakit2026/backend:latest
