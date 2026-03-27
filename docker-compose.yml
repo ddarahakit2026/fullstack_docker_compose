@@ -11,25 +11,24 @@ services:
       - "3306:3306"
     volumes:
       - ./db:/var/lib/mysql
-  backend:
-    build:
-      context: ./
-      dockerfile: Dockerfile
+
+  api-user:
+    image: ddarahakit2026/fullstack-api-user
     ports:
-      - "8080:8080"
+      - "8081:8080"
     environment:
       - DB_URL=jdbc:mariadb://db:3306/web
       - DB_USER=root
       - DB_PASS=qwer1234
     depends_on:
       - db
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        - VITE_BACKEND_URL=http://localhost:8080
+  api-post:
+    image: ddarahakit2026/fullstack-api-post
     ports:
-      - "80:80"
+      - "8082:8080"
+    environment:
+      - DB_URL=jdbc:mariadb://db:3306/web
+      - DB_USER=root
+      - DB_PASS=qwer1234
     depends_on:
-      - backend
+      - db
